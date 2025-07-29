@@ -9,12 +9,15 @@ class TestOrderCreate:
 
     @allure.title("Cоздания заказа с авторизацией")
     def test_create_order_authenticated(self, registered_user):
+        api_client = ApiClient()
+
         with allure.step("Получаем токен авторизации из зарегистрированного пользователя"):
             access_token = registered_user["access_token"].replace("Bearer ", "")
             assert access_token, "Токен отсутствует"
 
         with allure.step("Создаем заказ с авторизацией"):
             api_client = ApiClient()
+
             ingredients = TestData.get_ingredients()
             response = api_client.create_order(access_token=access_token, ingredients=ingredients)
 
@@ -24,6 +27,8 @@ class TestOrderCreate:
 
     @allure.title("Создание заказа без авторизации")
     def test_create_order_unauthenticated(self):
+        api_client = ApiClient()
+
         with allure.step("Создаем заказ без авторизации"):
             api_client = ApiClient()
             ingredients = TestData.get_ingredients()
@@ -35,6 +40,8 @@ class TestOrderCreate:
 
     @allure.title("Cоздания заказа с ингредиентами")
     def test_create_order_with_ingredients(self):
+        api_client = ApiClient()
+
         with allure.step("Создаем заказ с валидными ингредиентами"):
             api_client = ApiClient()
             ingredients = TestData.get_ingredients()
@@ -46,6 +53,8 @@ class TestOrderCreate:
 
     @allure.title("Создание заказа без ингредиентов")
     def test_create_order_empty_ingredients(self):
+        api_client = ApiClient()
+
         with allure.step("Создаем заказ без указания ингредиентов"):
             api_client = ApiClient()
             response = api_client.create_order()
@@ -56,6 +65,8 @@ class TestOrderCreate:
 
     @allure.title("Тест создания заказа с неверным хешем ингредиентов")
     def test_create_order_with_invalid_ingredient(self):
+        api_client = ApiClient()
+
         with allure.step("Создаем заказ с невалидным хешем ингредиента"):
             api_client = ApiClient()
             invalid_ingredients = ["invalid_hash_123"]

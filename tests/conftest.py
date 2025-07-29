@@ -1,11 +1,6 @@
 import pytest
 import requests
 from data import BASE_URL, ENDPOINTS, TestData
-from Api.api_client import ApiClient
-
-@pytest.fixture
-def api_client():
-    return ApiClient()
 
 @pytest.fixture
 def registered_user():
